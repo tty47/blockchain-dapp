@@ -15,7 +15,6 @@ export default {
     },
     methods: {
         decrement() {
-            //console.log("decrement");
             // with send, we are going to modify the blockchain
             // so, we have to add the account which we will use
             this.$counter.methods.decrement().send({
@@ -26,7 +25,6 @@ export default {
             });
         },
         increment() {
-            //console.log("increment");
             this.$counter.methods.increment().send({
                 from: window.ethereum.selectedAddress
             // This was the first getAccount values, before event
