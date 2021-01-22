@@ -1,10 +1,11 @@
 import Vue from 'vue'
 import App from './App.vue'
+import { CounterContract} from './counter-contract.js'
 
 Vue.config.productionTip = false
 
-// Contract address
-// 0x1dd78B26837553780C51b817C565d2cb04CAD451
+// inyect the counter from our CounterContract
+Vue.prototype.$counter = CounterContract;
 
 new Vue({
   render: h => h(App),
