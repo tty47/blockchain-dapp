@@ -1,7 +1,7 @@
 <template>
   <div>
       <button type="button" @click="decrement">-</button>
-      <span>Account: {{ account }} </span>
+      <span>Account Balance: <b>{{ account }}</b> ETH</span>
       <button type="button" @click="increment">+</button>
   </div>
 </template>
@@ -20,26 +20,26 @@ export default {
             // so, we have to add the account which we will use
             this.$counter.methods.decrement().send({
                 from: window.ethereum.selectedAddress
-            })
-            .then(() => {
-                this.getAccount()
+            // This was the first getAccount values, before event
+            //.then(() => {
+            //    this.getAccount()
             });
         },
         increment() {
             //console.log("increment");
             this.$counter.methods.increment().send({
                 from: window.ethereum.selectedAddress
-            })
-            .then(() => {
-                this.getAccount()
+            // This was the first getAccount values, before event
+            //.then(() => {
+            //    this.getAccount()
             });
         },
         getAccount() {
             this.$counter.methods.account().call()
-            .then(data => {
-            // store the value received into the this.account var
-            this.account = data;
-        });
+                .then(data => {
+                // store the value received into the this.account var
+                this.account = data;
+            });
         },
     },
     created(){
@@ -55,6 +55,11 @@ export default {
             // store the value received into the this.account var
             this.account = data;
         });
+
+        this.$counter.events.ChangedAccount({}, (err, res) => {
+            //console.log(res.returnValues._account);
+            this.account = res.returnValues._account;
+        })
     }
 }
 </script>
